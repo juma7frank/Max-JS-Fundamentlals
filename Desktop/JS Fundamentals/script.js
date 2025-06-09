@@ -124,3 +124,58 @@ const frankIndex = personData.findIndex((person, idx, persons) => {
 });
 
 console.log(frankIndex);
+//
+/*/forEach() method, is an alternative of the for-loop, save that in the forEach() method you have more control, as shown in the following example:
+const prices = [10.99, 5.99, 3.99, 6.59];
+const tax = 0.19;
+const taxAdjustedPrices = [];
+//
+// we can use the for-of loop to populate the taxAdjustedPrices array, but a better way, as you shall be seeing, is using the forEach() method
+for (const price of prices) {
+  taxAdjustedPrices.push(price * (1 + tax));
+}
+
+console.log(taxAdjustedPrices);
+//
+//forEach() version of it...
+//So as you can see, with forEach you can do much, since you not only have the items of the array, but also the index and the full array at your disposal
+prices.forEach((price, idx, prices) => {
+  const priceObj = {
+    index: idx,
+    tax: price * (tax + 1),
+  };
+  console.log(priceObj);
+});
+*/
+//
+//the map() method is powerful for returning values that are mapped, i.e values that are transformed,
+//So while in for-loop and in forEach() method we push the adjuted items onto the array, the map() method returns already-adjusted items
+//Additionally, it returns a new array, not pointing to the same address in memory of the initial un-adjusted array in memory
+const prices = [10.99, 5.99, 3.99, 6.59];
+const tax = 0.19;
+
+const taxAdjustedPrices = prices.map((price, idx, prices) => {
+  const priceObj = { index: idx, taxAdjprice: price * (1 + tax) };
+  return priceObj;
+});
+
+// console.log(prices, taxAdjustedPrices);
+//
+//the sort() method, as its name says, arranges the items in an array in a sorted form,
+//You can use the .sort() method without any argument, but if you do this, sort() will take the numbers/items as strings, and sort them out,
+//So for for the prices array, 1 > 3, instead of 10.99 > 3.99,
+//However, the sort() method recieves a function that takes two parameters, a AND b, in order to compare two pairs of the array, from the left side to the right side and arranging it based on their sizes...
+//The logic inside the sort method is definitely upto you, but I'd advice you use the one shown below
+const sortedPrices = prices.sort((a, b) => {
+  if (a > b) {
+    return 1;
+  } else if (a === b) {
+    return 0;
+  } else {
+    return -1;
+  }
+});
+//
+//the reverse() methord arranges the array from the other way around, thus the last becomes the first, and vice versa...
+//It doesn't take any argument, just reverses the array's arrangement
+console.log(sortedPrices.reverse());
