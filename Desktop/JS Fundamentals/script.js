@@ -175,7 +175,94 @@ const sortedPrices = prices.sort((a, b) => {
     return -1;
   }
 });
+
+console.log(sortedPrices);
 //
 //the reverse() methord arranges the array from the other way around, thus the last becomes the first, and vice versa...
 //It doesn't take any argument, just reverses the array's arrangement
 console.log(sortedPrices.reverse());
+//
+//filter() method is an array method, that filters items in the array that satisfies a condition..
+//likw find() or findIndex() methods,, filter() method takes a function as an argumrnent that returns a boolean...
+//It returns true for the item that is to be stored in the newly created array(since filter yeilds a brand new array), and false for that which is to be dropped..
+//Notice, the power of the Arrow function, in making the function much shorter
+const filteredPrices = prices.filter((p) => p > 6);
+
+console.log(filteredPrices, prices);
+//
+// In as much as you can sum up the numbers in an array through forEach() as shown below OR even for-loop, there's another powerful javascript in-built funciton called reduce, that makes life easier
+// let sum = 0;
+// prices.forEach((price) => {
+//   sum += price;
+// });
+
+// console.log(sum);
+//
+//the reduce() method reduces items in an array, mostly array of numbers, to a more simpler value, like the sum of all the items of the array
+//it also takes a function as an argument, and another optional second argument which marks the starting point. The calleback function takes four arguments, namely previousValue, currentVaue, currentIndex & the full array,
+//reduce() returns the overall simpler value
+const sum = prices.reduce((prevValue, curValue, curIndex, prices) => {
+  return prevValue + curValue;
+}, 0);
+
+console.log(sum);
+//
+//split() method is a string method, not an array method, that is handy in converting in splitting strings into an array of items that you wish to have from that string
+const data = 'Rongai;0050;2025';
+//
+//So as an argument, you pass the splitter that you'll use to split the string, and split will return a new array of the items that are fragmented
+const splittedData = data.split(';');
+splittedData[1] = +splittedData[1]; // This if you need the numbers to be of type number and not a string, otherwise everything will be a string, including the numbers
+console.log(splittedData);
+//
+//join() method does the opposite of the split() method, in that it joins items in an array into a string, even if there was a number, join() will convert it to be of type string
+const nameFragments = ['Jesus', 'is', 'LORD'];
+// You can leave it without an argument, which in this case join() will seperate the items with a comma by default
+//However, you can specify what should join the items, whether it's a comma, whitespace, underscore, hyphen etc
+//The arguments of both split() and join() should be a string
+const confession = nameFragments.join(' ');
+console.log(confession);
+//
+//the spread operator(...array) helps in extracting items in an array to become standalone comma seperated values
+//It can be used for a couple of reasons, like copying the full array, BUT IS ESPECIALLY useful in in-built functions that require single elements and not an array, like the min() method in the Global Math Object...
+//for copying arrays...
+const copiedNameFragments = [...nameFragments];
+nameFragments.push('Amen');
+console.log(copiedNameFragments, nameFragments);
+//
+//for the special methods lie the min() methods...
+console.log(Math.min(...prices));
+//
+//Since objects are refrerence values, yes we can make a copy of the array, but the issue comes in when you want to manipulate the exact object in the array
+const persons = [
+  { name: 'Juma', age: 32 },
+  { name: 'Norman', age: 22 },
+];
+const copiedPersons = [...persons];
+persons.push({ name: 'Judith', age: 25 });
+//
+//So you'll discover that here, both persons and the copiedpersons, name Norman will be changed to Wachira..
+//Therefore in this case other methods such as teh map() method becomes important
+// persons[1].name = 'Wachira';
+//
+//using the map() mthod...(By the way in the map method, we wrap the curly braces with brackets to tell javascript that this isn't the function body)
+const mappedMethod = persons.map((person) => ({
+  name: person.name,
+  age: person.age,
+}));
+//
+// Hence if we change one array, It wouldn't reflect in the other one, since map() returns a new array entirely
+mappedMethod[1].name = 'Wachira';
+console.log(mappedMethod, persons);
+//
+//Array destructuring is an es6 feature, where you want to store items in an array in a simpler way. Here's how..
+const nameData = ['Juma', 'Frank', 'Saved', 23];
+//
+//This is the traditonal way, but array destructuring makes it easier..
+// const firstName = nameData[0];
+// const lastName = nameData[1];
+//
+//Also, here's where the REST OPERATOR becomes handy, in that it gathers items, mostly the rest of the information into an array...
+//SPREAD OPERATOR extracts items in an array, while REST OPERATOR gathers items into an array..
+const [firstName, lastName, ...otherInfo] = nameData;
+console.log(firstName, lastName, otherInfo);
